@@ -5,9 +5,11 @@ require('dotenv').config();
 
 const app = express();
 
+const frontendPath = path.resolve(__dirname, '../frontend');
+
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(frontendPath));
 
 // Health check
 app.get('/health', (req, res) => {
@@ -19,7 +21,7 @@ app.use('/api/projects', require('./routes/projects'));
 app.use('/api/tasks', require('./routes/tasks'));
 
 app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/index.html'));
+  res.sendFile('index.html', { root: frontendPath });
 });
 
 const PORT = process.env.PORT || 5000;
