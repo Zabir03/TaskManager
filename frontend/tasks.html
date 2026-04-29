@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasks - TaskFlow</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <span>📋 TaskFlow</span>
+    <div>
+      <span id="userGreeting"></span>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="projects.html">Projects</a>
+      <a href="tasks.html">Tasks</a>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem">
+      <h2>✅ Tasks</h2>
+      <button class="btn-primary" onclick="openCreateModal()">+ New Task</button>
+    </div>
+
+    <!-- Filters -->
+    <div style="display:flex; gap:1rem; margin-bottom:1.5rem; flex-wrap:wrap">
+      <select id="filterProject" onchange="loadTasks()"
+        style="padding:0.6rem 1rem; border:1px solid #ddd; border-radius:8px; background:white">
+        <option value="">All Projects</option>
+      </select>
+
+      <select id="filterStatus" onchange="filterTasks()"
+        style="padding:0.6rem 1rem; border:1px solid #ddd; border-radius:8px; background:white">
+        <option value="">All Status</option>
+        <option value="todo">Todo</option>
+        <option value="in_progress">In Progress</option>
+        <option value="done">Done</option>
+      </select>
+
+      <select id="filterPriority" onchange="filterTasks()"
+        style="padding:0.6rem 1rem; border:1px solid #ddd; border-radius:8px; background:white">
+        <option value="">All Priority</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+    </div>
+
+    <!-- Kanban Board -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1rem">
+
+      <!-- Todo Column -->
+      <div style="background:#f9fafb; border-radius:12px; padding:1rem">
+        <h3 style="margin-bottom:1rem; color:#374151">
+          📋 Todo <span id="todoCount" style="background:#e5e7eb; padding:0.2rem 0.6rem; border-radius:20px; font-size:0.8rem"></span>
+        </h3>
+        <div id="todoList"></div>
+      </div>
+
+      <!-- In Progress Column -->
+      <div style="background:#fffbeb; border-radius:12px; padding:1rem">
+        <h3 style="margin-bottom:1rem; color:#92400e">
+          🔄 In Progress <span id="inProgressCount" style="background:#fde68a; padding:0.2rem 0.6rem; border-radius:20px; font-size:0.8rem"></span>
+        </h3>
+        <div id="inProgressList"></div>
+      </div>
+
+      <!-- Done Column -->
+      <div style="background:#f0fdf4; border-radius:12px; padding:1rem">
+        <h3 style="margin-bottom:1rem; color:#065f46">
+          ✅ Done <span id="doneCount" style="background:#bbf7d0; padding:0.2rem 0.6rem; border-radius:20px; font-size:0.8rem"></span>
+        </h3>
+        <div id="doneList"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Create Task Modal -->
+  <div class="modal" id="createTaskModal">
+    <div class="modal-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem">
+        <h3>➕ Create New Task</h3>
+        <button onclick="closeCreateModal()"
+          style="width:auto; background:none; color:#666; font-size:1.5rem; padding:0">×</button>
+      </div>
+
+      <div class="form-group">
+        <label>Task Title *</label>
+        <input type="text" id="taskTitle" placeholder="Enter task title" />
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="taskDesc" rows="3" placeholder="Task description (optional)"
+          style="width:100%; padding:0.7rem; border:1px solid #ddd; border-radius:8px; resize:vertical"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Project *</label>
+        <select id="taskProject" onchange="loadProjectMembers()">
+          <option value="">Select Project</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Assign To</label>
+        <select id="taskAssignee">
+          <option value="">Unassigned</option>
+        </select>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem">
+        <div class="form-group">
+          <label>Priority</label>
+          <select id="taskPriority">
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+            <option value="low">Low</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Due Date</label>
+          <input type="date" id="taskDueDate" />
+        </div>
+      </div>
+
+      <p id="createTaskMsg" class="message"></p>
+
+      <div style="display:flex; gap:1rem; margin-top:1rem">
+        <button class="btn-primary" onclick="createTask()">Create Task</button>
+        <button onclick="closeCreateModal()"
+          style="width:auto; padding:0.7rem 1.5rem; background:#f3f4f6; color:#333; border:none; border-radius:8px; cursor:pointer">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Status Modal -->
+  <div class="modal" id="updateStatusModal">
+    <div class="modal-content" style="max-width:400px">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem">
+        <h3>🔄 Update Task Status</h3>
+        <button onclick="closeStatusModal()"
+          style="width:auto; background:none; color:#666; font-size:1.5rem; padding:0">×</button>
+      </div>
+
+      <p id="statusTaskTitle" style="font-weight:600; margin-bottom:1rem; color:#374151"></p>
+
+      <div class="form-group">
+        <label>New Status</label>
+        <select id="newStatus">
+          <option value="todo">📋 Todo</option>
+          <option value="in_progress">🔄 In Progress</option>
+          <option value="done">✅ Done</option>
+        </select>
+      </div>
+
+      <div style="display:flex; gap:1rem; margin-top:1rem">
+        <button class="btn-primary" onclick="updateStatus()">Update</button>
+        <button onclick="closeStatusModal()"
+          style="width:auto; padding:0.7rem 1.5rem; background:#f3f4f6; color:#333; border:none; border-radius:8px; cursor:pointer">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/tasks.js"></script>
+</body>
+</html>

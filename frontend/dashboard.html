@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - TaskFlow</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <span>📋 TaskFlow</span>
+    <div>
+      <span id="userGreeting"></span>
+      <a href="projects.html">Projects</a>
+      <a href="tasks.html">Tasks</a>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>Dashboard</h2>
+
+    <div class="stats-grid">
+      <div class="stat-card blue">
+        <h3 id="totalProjects">0</h3>
+        <p>Total Projects</p>
+      </div>
+      <div class="stat-card green">
+        <h3 id="doneTasks">0</h3>
+        <p>Completed Tasks</p>
+      </div>
+      <div class="stat-card yellow">
+        <h3 id="inProgressTasks">0</h3>
+        <p>In Progress</p>
+      </div>
+      <div class="stat-card red">
+        <h3 id="overdueTasks">0</h3>
+        <p>Overdue Tasks</p>
+      </div>
+    </div>
+
+    <h3>⚠️ Overdue Tasks</h3>
+    <div id="overdueList" class="task-list"></div>
+  </div>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
