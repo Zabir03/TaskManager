@@ -1,6 +1,6 @@
 const token = localStorage.getItem('token');
 const user = JSON.parse(localStorage.getItem('user') || '{}');
-if (!token) window.location.href = 'index.html';
+if (!token) window.location.href = '/index.html';
 
 document.getElementById('userGreeting').textContent = `👤 ${user.name} (${user.role})`;
 
@@ -246,7 +246,7 @@ function closeStatusModal() {
 
 function logout() {
   localStorage.clear();
-  window.location.href = 'index.html';
+  window.location.href = '/index.html';
 }
 
 // ─── Start ────────────────────────────────────────────────

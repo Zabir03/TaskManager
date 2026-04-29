@@ -19,7 +19,7 @@ async function login() {
   if (res.ok) {
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data.user));
-    window.location.href = 'dashboard.html';
+    window.location.href = '/dashboard.html';
   } else {
     msg.textContent = data.message; msg.className = 'message error';
   }
@@ -44,10 +44,10 @@ async function signup() {
 
 function logout() {
   localStorage.clear();
-  window.location.href = 'index.html';
+  window.location.href = '/index.html';
 }
 
 // Redirect if already logged in
 if (localStorage.getItem('token') && window.location.pathname.endsWith('index.html')) {
-  window.location.href = 'dashboard.html';
+  window.location.href = '/dashboard.html';
 }

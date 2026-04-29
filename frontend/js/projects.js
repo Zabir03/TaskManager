@@ -1,6 +1,6 @@
 const token = localStorage.getItem('token');
 const user = JSON.parse(localStorage.getItem('user') || '{}');
-if (!token) window.location.href = 'index.html';
+if (!token) window.location.href = '/index.html';
 
 // Set greeting and hide New Project button for members
 document.getElementById('userGreeting').textContent = `👤 ${user.name} (${user.role})`;
@@ -222,7 +222,7 @@ function closeDetailModal() {
 // ─── Logout ───────────────────────────────────────────────
 function logout() {
   localStorage.clear();
-  window.location.href = 'index.html';
+  window.location.href = '/index.html';
 }
 
 // ─── Start ────────────────────────────────────────────────
