@@ -10,7 +10,7 @@ app.use(express.json());
 
 // Fix frontend path for Railway
 const frontendPath = path.resolve(__dirname, '..', 'frontend');
-console.log('Frontend path:', frontendPath); // This will show in logs
+app.use(express.static(frontendPath));
 
 app.use(express.static(frontendPath));
 
@@ -24,6 +24,8 @@ app.use('/api/projects', require('./routes/projects'));
 app.use('/api/tasks', require('./routes/tasks'));
 
 // Serve frontend for all other routes
+
+
 app.get('*', (req, res) => {
   const indexPath = path.resolve(__dirname, '..', 'frontend', 'index.html');
   console.log('Serving index from:', indexPath);
