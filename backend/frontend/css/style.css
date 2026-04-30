@@ -84,3 +84,55 @@ button:active { transform: scale(0.98); }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .modal-content { padding: 1.5rem; }
 }
+
+/* ─── Auth Page Specific Buttons ─────────────────────────── */
+.auth-card button {
+  width: 100%;
+  padding: 0.85rem;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-top: 0.8rem;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+}
+
+.auth-card button:hover {
+  background: linear-gradient(135deg, #4338ca, #6d28d9);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+}
+
+.auth-card button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+}
+
+/* Tab buttons - override global button style */
+.tab-btn {
+  background: white !important;
+  color: #555 !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+  margin-top: 0 !important;
+  letter-spacing: 0 !important;
+  border-radius: 0 !important;
+  transform: none !important;
+}
+
+.tab-btn.active {
+  background: #4f46e5 !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.tab-btn:hover:not(.active) {
+  background: #f3f4f6 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
