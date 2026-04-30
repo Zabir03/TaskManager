@@ -4,18 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tasks - TaskFlow</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-  <!-- Navbar -->
   <nav class="navbar">
     <span>📋 TaskFlow</span>
     <div>
       <span id="userGreeting"></span>
-      <a href="/dashboard.html">Dashboard</a>
-      <a href="/projects.html">Projects</a>
-      <a href="/tasks.html">Tasks</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="projects.html">Projects</a>
+      <a href="tasks.html">Tasks</a>
       <button onclick="logout()">Logout</button>
     </div>
   </nav>
@@ -32,7 +30,6 @@
         style="padding:0.6rem 1rem; border:1px solid #ddd; border-radius:8px; background:white">
         <option value="">All Projects</option>
       </select>
-
       <select id="filterStatus" onchange="filterTasks()"
         style="padding:0.6rem 1rem; border:1px solid #ddd; border-radius:8px; background:white">
         <option value="">All Status</option>
@@ -40,7 +37,6 @@
         <option value="in_progress">In Progress</option>
         <option value="done">Done</option>
       </select>
-
       <select id="filterPriority" onchange="filterTasks()"
         style="padding:0.6rem 1rem; border:1px solid #ddd; border-radius:8px; background:white">
         <option value="">All Priority</option>
@@ -52,31 +48,32 @@
 
     <!-- Kanban Board -->
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1rem">
-
-      <!-- Todo Column -->
       <div style="background:#f9fafb; border-radius:12px; padding:1rem">
         <h3 style="margin-bottom:1rem; color:#374151">
-          📋 Todo <span id="todoCount" style="background:#e5e7eb; padding:0.2rem 0.6rem; border-radius:20px; font-size:0.8rem"></span>
+          📋 Todo
+          <span id="todoCount"
+            style="background:#e5e7eb; padding:0.2rem 0.6rem; border-radius:20px; font-size:0.8rem"></span>
         </h3>
         <div id="todoList"></div>
       </div>
 
-      <!-- In Progress Column -->
       <div style="background:#fffbeb; border-radius:12px; padding:1rem">
         <h3 style="margin-bottom:1rem; color:#92400e">
-          🔄 In Progress <span id="inProgressCount" style="background:#fde68a; padding:0.2rem 0.6rem; border-radius:20px; font-size:0.8rem"></span>
+          🔄 In Progress
+          <span id="inProgressCount"
+            style="background:#fde68a; padding:0.2rem 0.6rem; border-radius:20px; font-size:0.8rem"></span>
         </h3>
         <div id="inProgressList"></div>
       </div>
 
-      <!-- Done Column -->
       <div style="background:#f0fdf4; border-radius:12px; padding:1rem">
         <h3 style="margin-bottom:1rem; color:#065f46">
-          ✅ Done <span id="doneCount" style="background:#bbf7d0; padding:0.2rem 0.6rem; border-radius:20px; font-size:0.8rem"></span>
+          ✅ Done
+          <span id="doneCount"
+            style="background:#bbf7d0; padding:0.2rem 0.6rem; border-radius:20px; font-size:0.8rem"></span>
         </h3>
         <div id="doneList"></div>
       </div>
-
     </div>
   </div>
 
@@ -123,7 +120,6 @@
             <option value="low">Low</option>
           </select>
         </div>
-
         <div class="form-group">
           <label>Due Date</label>
           <input type="date" id="taskDueDate" />
@@ -135,7 +131,8 @@
       <div style="display:flex; gap:1rem; margin-top:1rem">
         <button class="btn-primary" onclick="createTask()">Create Task</button>
         <button onclick="closeCreateModal()"
-          style="width:auto; padding:0.7rem 1.5rem; background:#f3f4f6; color:#333; border:none; border-radius:8px; cursor:pointer">
+          style="width:auto; padding:0.7rem 1.5rem; background:#f3f4f6;
+          color:#333; border:none; border-radius:8px; cursor:pointer">
           Cancel
         </button>
       </div>
@@ -146,7 +143,7 @@
   <div class="modal" id="updateStatusModal">
     <div class="modal-content" style="max-width:400px">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem">
-        <h3>🔄 Update Task Status</h3>
+        <h3>🔄 Update Status</h3>
         <button onclick="closeStatusModal()"
           style="width:auto; background:none; color:#666; font-size:1.5rem; padding:0">×</button>
       </div>
@@ -165,13 +162,14 @@
       <div style="display:flex; gap:1rem; margin-top:1rem">
         <button class="btn-primary" onclick="updateStatus()">Update</button>
         <button onclick="closeStatusModal()"
-          style="width:auto; padding:0.7rem 1.5rem; background:#f3f4f6; color:#333; border:none; border-radius:8px; cursor:pointer">
+          style="width:auto; padding:0.7rem 1.5rem; background:#f3f4f6;
+          color:#333; border:none; border-radius:8px; cursor:pointer">
           Cancel
         </button>
       </div>
     </div>
   </div>
 
-  <script src="/js/tasks.js"></script>
+  <script src="js/tasks.js"></script>
 </body>
 </html>
