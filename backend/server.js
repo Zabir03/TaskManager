@@ -5,26 +5,33 @@ require('dotenv').config();
 
 const app = express();
 
-const frontendPath = path.resolve(__dirname, '../frontend');
-
 app.use(cors());
 app.use(express.json());
+
+// Fix frontend path for Railway
+const frontendPath = path.resolve(__dirname, '..', 'frontend');
+console.log('Frontend path:', frontendPath); // This will show in logs
+
 app.use(express.static(frontendPath));
 
 // Health check
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok' });
+  res.json({ status: 'ok', frontendPath });
 });
 
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/projects', require('./routes/projects'));
 app.use('/api/tasks', require('./routes/tasks'));
 
-app.get(/.*/, (req, res) => {
-  res.sendFile('index.html', { root: frontendPath });
+// Serve frontend for all other routes
+app.get('*', (req, res) => {
+  const indexPath = path.resolve(__dirname, '..', 'frontend', 'index.html');
+  console.log('Serving index from:', indexPath);
+  res.sendFile(indexPath);
 });
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`✅ Server running on address on address http://localhost:${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
+  console.log(`✅ __dirname is: ${__dirname}`);
 });
